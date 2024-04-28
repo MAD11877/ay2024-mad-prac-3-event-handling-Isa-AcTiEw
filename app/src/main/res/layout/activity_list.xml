@@ -8,6 +8,7 @@
     tools:context=".ListActivity">
 
     <ImageView
+        android:id="@+id/userProfile"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:background="@drawable/ic_launcher_background"

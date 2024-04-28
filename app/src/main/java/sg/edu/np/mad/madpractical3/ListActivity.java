@@ -1,12 +1,20 @@
 package sg.edu.np.mad.madpractical3;
-
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-
+import android.widget.ImageView;
+import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import android.content.Context;
+
+
 
 public class ListActivity extends AppCompatActivity {
 
@@ -18,7 +26,71 @@ public class ListActivity extends AppCompatActivity {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+
+
             return insets;
+
+
         });
+        ImageView userProfile = findViewById(R.id.userProfile);
+        userProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createDialog(ListActivity.this);
+
+            }
+        });
+
+
+
     }
+
+    public void createDialog(Context context){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Sets the title of the alert dialog
+        builder.setTitle("Profile");
+
+        //Sets the message of the alert dialog, block of text content (paragraph)
+
+        builder.setMessage("MADness");
+
+        // Set the positive button
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Intents are used to start activity, broadcast services and more
+                // navigate to the profile page using new Intent, from our source (ListActivity) -> (MainActivity) destination activity
+                Intent ListToMain = new Intent(ListActivity.this,MainActivity.class);
+                startActivity(ListToMain);
+            }
+        });
+
+        // set the negative button
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        // show the dialog
+        AlertDialog alert = builder.create();
+        alert.show();
+
+
+
+
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
