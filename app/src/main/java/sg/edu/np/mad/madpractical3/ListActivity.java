@@ -13,6 +13,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import android.content.Context;
+import java.security.SecureRandom;
+import java.lang.String;
 
 
 
@@ -46,6 +48,9 @@ public class ListActivity extends AppCompatActivity {
     }
 
     public void createDialog(Context context){
+        // Generate a SecureRandom integer
+        SecureRandom secureRandom = new SecureRandom();
+        Integer randint = Math.abs(secureRandom.nextInt());
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Sets the title of the alert dialog
         builder.setTitle("Profile");
@@ -56,18 +61,21 @@ public class ListActivity extends AppCompatActivity {
 
         // Set the positive button
 
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("View", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Intents are used to start activity, broadcast services and more
                 // navigate to the profile page using new Intent, from our source (ListActivity) -> (MainActivity) destination activity
                 Intent ListToMain = new Intent(ListActivity.this,MainActivity.class);
+                // pass the variable to the next activity using putExtra() as a key-value pair (map)
+                ListToMain.putExtra("1",randint.toString());
                 startActivity(ListToMain);
+
             }
         });
 
         // set the negative button
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

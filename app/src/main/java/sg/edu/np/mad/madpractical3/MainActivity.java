@@ -1,4 +1,5 @@
 package sg.edu.np.mad.madpractical3;
+import android.content.Intent;
 import android.view.View;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -11,6 +12,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -18,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        Intent recieveIntent = getIntent();
+        String passwd = recieveIntent.getStringExtra("1");
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.parent), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -29,13 +34,14 @@ public class MainActivity extends AppCompatActivity {
         });
         User user = new User("John Doe", "MAD Developer", 1, false);
 
+        String name = user.name + " " + passwd;
         TextView tvName = findViewById(R.id.tvName);
 
         TextView tvDescription = findViewById(R.id.tvDescription);
 
         Button buttonFollow = findViewById(R.id.btnFollow);
 
-        tvName.setText(user.name);
+        tvName.setText(name);
 
         tvDescription.setText(user.description);
 
